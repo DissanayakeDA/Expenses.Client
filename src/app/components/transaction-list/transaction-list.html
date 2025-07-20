@@ -1,1 +1,169 @@
-<p>transaction-list works!</p>
+<style>
+  .financial-card {
+    transition: all 0.3s ease;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .financial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+  }
+
+  .card-icon {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 2.5rem;
+    opacity: 0.3;
+  }
+
+  .card-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 15px;
+    opacity: 0.9;
+  }
+
+  .card-trend {
+    font-size: 0.875rem;
+    margin-top: 10px;
+    opacity: 0.8;
+  }
+
+  .bg-income {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  }
+
+  .bg-expense {
+    background: linear-gradient(135deg, #dc3545 0%, #fd7e14 100%);
+  }
+
+  .bg-networth {
+    background: linear-gradient(135deg, #007bff 0%, #6610f2 100%);
+  }
+
+  .pulse-animation {
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.02);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  .card-footer-custom {
+    background: rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 10px 20px;
+  }
+</style>
+
+<div class="container-fluid px-4 mt-5">
+  <div class="row g-4 mb-4">
+    <!-- Total Income Card -->
+    <div class="col-md-4">
+      <div class="card h-100 financial-card bg-income text-white">
+        <div class="card-body position-relative">
+          <i class="fas fa-arrow-up card-icon"></i>
+          <h5 class="card-title">Total Income</h5>
+          <h3 class="card-value">$0</h3>
+          <div class="card-trend">
+            <i class="fas fa-chart-line me-1"></i>
+            <span>+0% from last month</span>
+          </div>
+        </div>
+        <div class="card-footer-custom">
+          <small><i class="fas fa-calendar-alt me-1"></i>Updated today</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Total Expenses Card -->
+    <div class="col-md-4">
+      <div class="card h-100 financial-card bg-expense text-white">
+        <div class="card-body position-relative">
+          <i class="fas fa-arrow-down card-icon"></i>
+          <h5 class="card-title">Total Expenses</h5>
+          <h3 class="card-value">$0</h3>
+          <div class="card-trend">
+            <i class="fas fa-chart-line-down me-1"></i>
+            <span>+0% from last month</span>
+          </div>
+        </div>
+        <div class="card-footer-custom">
+          <small
+            ><i class="fas fa-shopping-cart me-1"></i>Last updated today</small
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Net Worth Card -->
+    <div class="col-md-4">
+      <div
+        class="card h-100 financial-card bg-networth text-white pulse-animation"
+      >
+        <div class="card-body position-relative">
+          <i class="fas fa-wallet card-icon"></i>
+          <h5 class="card-title">Net Worth</h5>
+          <h3 class="card-value">$0</h3>
+          <div class="card-trend">
+            <i class="fas fa-balance-scale me-1"></i>
+            <span>Balanced portfolio</span>
+          </div>
+        </div>
+        <div class="card-footer-custom">
+          <small
+            ><i class="fas fa-trophy me-1"></i>Financial goal tracking</small
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+  <h3>Transaction</h3>
+  <div class="table-responsive">
+    <table class="table table-hover align-middle">
+      <thead>
+        <tr>
+          <th style="width: 15%">Date</th>
+          <th style="width: 15%">Type</th>
+          <th style="width: 25%">Category</th>
+          <th style="width: 20%">Amount</th>
+          <th style="width: 15%">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let transaction of transactions">
+          <td>{{ transaction.createdAt }}</td>
+          <td>{{ transaction.type }}</td>
+          <td>{{ transaction.category }}</td>
+          <td>{{ transaction.amount }}</td>
+          <td>
+            <button class="btn btn-sm btn-primary me-2">Edit</button>
+            <button class="btn btn-sm btn-danger">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
