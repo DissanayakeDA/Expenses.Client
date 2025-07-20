@@ -3,6 +3,6 @@ export interface Transaction {
   type: string;
   category: string;
   amount: number;
-  createdAt: Date;
+  createAt: Date;
   updatedAt: Date;
 }

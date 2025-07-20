@@ -1,16 +1,44 @@
 <style>
+  @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+  * {
+    font-family: "Inter", sans-serif;
+  }
+
   .financial-card {
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     border: none;
-    border-radius: 15px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     position: relative;
     overflow: hidden;
+    backdrop-filter: blur(10px);
+  }
+
+  .financial-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.3) 0%,
+      rgba(255, 255, 255, 0.7) 50%,
+      rgba(255, 255, 255, 0.3) 100%
+    );
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+  }
+
+  .financial-card:hover::before {
+    transform: translateX(100%);
   }
 
   .financial-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.18);
   }
 
   .card-icon {
@@ -18,45 +46,85 @@
     right: 20px;
     top: 20px;
     font-size: 2.5rem;
-    opacity: 0.3;
+    opacity: 0.2;
+    transition: all 0.3s ease;
+    transform: rotate(0deg);
+  }
+
+  .financial-card:hover .card-icon {
+    opacity: 0.4;
+    transform: rotate(10deg) scale(1.1);
   }
 
   .card-value {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     font-weight: 700;
     margin: 0;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(255, 255, 255, 0.8) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   .card-title {
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.8px;
     margin-bottom: 15px;
-    opacity: 0.9;
+    opacity: 0.95;
+    position: relative;
+  }
+
+  .card-title::after {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 2px;
   }
 
   .card-trend {
-    font-size: 0.875rem;
-    margin-top: 10px;
-    opacity: 0.8;
+    font-size: 0.9rem;
+    margin-top: 15px;
+    opacity: 0.85;
+    display: flex;
+    align-items: center;
   }
 
   .bg-income {
-    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    background: linear-gradient(135deg, #00b09b 0%, #96c93d 100%);
+    position: relative;
   }
 
   .bg-expense {
-    background: linear-gradient(135deg, #dc3545 0%, #fd7e14 100%);
+    background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+    position: relative;
   }
 
   .bg-networth {
-    background: linear-gradient(135deg, #007bff 0%, #6610f2 100%);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    position: relative;
+  }
+
+  .bg-success {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%) !important;
+  }
+
+  .bg-danger {
+    background: linear-gradient(135deg, #fc466b 0%, #3f5efb 100%) !important;
   }
 
   .pulse-animation {
-    animation: pulse 2s infinite;
+    animation: pulse 3s infinite;
   }
 
   @keyframes pulse {
@@ -64,7 +132,7 @@
       transform: scale(1);
     }
     50% {
-      transform: scale(1.02);
+      transform: scale(1.03);
     }
     100% {
       transform: scale(1);
@@ -72,9 +140,187 @@
   }
 
   .card-footer-custom {
-    background: rgba(255, 255, 255, 0.1);
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.15);
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
+    padding: 12px 20px;
+    backdrop-filter: blur(10px);
+  }
+
+  .card-footer-custom small {
+    font-weight: 500;
+    opacity: 0.9;
+  }
+
+  /* Enhanced Table Styles */
+  .table-container {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    margin-top: 40px;
+  }
+
+  .table-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px 25px;
+    margin: 0;
+    font-weight: 600;
+    font-size: 1.3rem;
+    letter-spacing: 0.5px;
+  }
+
+  .table-responsive {
+    border-radius: 0 0 20px 20px;
+    overflow: hidden;
+  }
+
+  .table {
+    margin-bottom: 0;
+    background: white;
+  }
+
+  .table thead th {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: none;
+    font-weight: 600;
+    color: #495057;
+    padding: 15px 12px;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+  }
+
+  .table thead th::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  }
+
+  .table tbody tr {
+    transition: all 0.3s ease;
+    border: none;
+  }
+
+  .table tbody tr:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(102, 126, 234, 0.05) 0%,
+      rgba(118, 75, 162, 0.05) 100%
+    );
+    transform: scale(1.01);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .table tbody td {
+    border: none;
+    padding: 15px 12px;
+    font-weight: 500;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  /* Enhanced Button Styles */
+  .btn {
+    border-radius: 10px;
+    padding: 8px 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    border: none;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    transform: translate(-50%, -50%);
+  }
+
+  .btn:hover::before {
+    width: 100%;
+    height: 100%;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  }
+
+  .btn-primary:hover {
+    background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+  }
+
+  .btn-danger {
+    background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+    box-shadow: 0 4px 15px rgba(255, 65, 108, 0.4);
+  }
+
+  .btn-danger:hover {
+    background: linear-gradient(135deg, #e73c5e 0%, #e7431f 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 65, 108, 0.6);
+  }
+
+  /* Text Color Enhancements */
+  .text-success {
+    color: #28a745 !important;
+    font-weight: 600;
+  }
+
+  .text-danger {
+    color: #dc3545 !important;
+    font-weight: 600;
+  }
+
+  /* Responsive Enhancements */
+  @media (max-width: 768px) {
+    .financial-card:hover {
+      transform: translateY(-4px) scale(1.01);
+    }
+
+    .card-value {
+      font-size: 2.2rem;
+    }
+
+    .card-icon {
+      font-size: 2.5rem;
+    }
+  }
+
+  /* Loading Animation for Dynamic Content */
+  @keyframes shimmer {
+    0% {
+      background-position: -200px 0;
+    }
+    100% {
+      background-position: calc(200px + 100%) 0;
+    }
+  }
+
+  .loading-shimmer {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200px 100%;
+    animation: shimmer 2s infinite;
   }
 </style>
 
@@ -82,18 +328,20 @@
   <div class="row g-4 mb-4">
     <!-- Total Income Card -->
     <div class="col-md-4">
-      <div class="card h-100 financial-card bg-income text-white">
+      <div
+        class="card h-100 financial-card bg-income text-white pulse-animation"
+      >
         <div class="card-body position-relative">
           <i class="fas fa-arrow-up card-icon"></i>
           <h5 class="card-title">Total Income</h5>
-          <h3 class="card-value">$0</h3>
+          <h3 class="card-value">{{ getTotalIncome() | currency }}</h3>
           <div class="card-trend">
-            <i class="fas fa-chart-line me-1"></i>
-            <span>+0% from last month</span>
+            <i class="fas fa-chart-line me-2"></i>
+            <span>Revenue Stream</span>
           </div>
         </div>
         <div class="card-footer-custom">
-          <small><i class="fas fa-calendar-alt me-1"></i>Updated today</small>
+          <small><i class="fas fa-calendar-alt me-2"></i>Updated today</small>
         </div>
       </div>
     </div>
@@ -104,15 +352,15 @@
         <div class="card-body position-relative">
           <i class="fas fa-arrow-down card-icon"></i>
           <h5 class="card-title">Total Expenses</h5>
-          <h3 class="card-value">$0</h3>
+          <h3 class="card-value">{{ getTotalExpenses() | currency }}</h3>
           <div class="card-trend">
-            <i class="fas fa-chart-line-down me-1"></i>
-            <span>+0% from last month</span>
+            <i class="fas fa-chart-line-down me-2"></i>
+            <span>Outgoing Costs</span>
           </div>
         </div>
         <div class="card-footer-custom">
           <small
-            ><i class="fas fa-shopping-cart me-1"></i>Last updated today</small
+            ><i class="fas fa-shopping-cart me-2"></i>Last updated today</small
           >
         </div>
       </div>
@@ -121,49 +369,94 @@
     <!-- Net Worth Card -->
     <div class="col-md-4">
       <div
-        class="card h-100 financial-card bg-networth text-white pulse-animation"
+        class="card h-100 financial-card text-white"
+        [ngClass]="getBalance() >= 0 ? 'bg-success' : 'bg-danger'"
       >
         <div class="card-body position-relative">
           <i class="fas fa-wallet card-icon"></i>
           <h5 class="card-title">Net Worth</h5>
-          <h3 class="card-value">$0</h3>
+          <h3 class="card-value fw-bold">{{ getBalance() | currency }}</h3>
           <div class="card-trend">
-            <i class="fas fa-balance-scale me-1"></i>
-            <span>Balanced portfolio</span>
+            <i class="fas fa-balance-scale me-2"></i>
+            <span>Financial Balance</span>
           </div>
         </div>
         <div class="card-footer-custom">
           <small
-            ><i class="fas fa-trophy me-1"></i>Financial goal tracking</small
+            ><i class="fas fa-trophy me-2"></i>Financial goal tracking</small
           >
         </div>
       </div>
     </div>
   </div>
-  <h3>Transaction</h3>
-  <div class="table-responsive">
-    <table class="table table-hover align-middle">
-      <thead>
-        <tr>
-          <th style="width: 15%">Date</th>
-          <th style="width: 15%">Type</th>
-          <th style="width: 25%">Category</th>
-          <th style="width: 20%">Amount</th>
-          <th style="width: 15%">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let transaction of transactions">
-          <td>{{ transaction.createdAt }}</td>
-          <td>{{ transaction.type }}</td>
-          <td>{{ transaction.category }}</td>
-          <td>{{ transaction.amount }}</td>
-          <td>
-            <button class="btn btn-sm btn-primary me-2">Edit</button>
-            <button class="btn btn-sm btn-danger">Delete</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+
+  <div class="table-container">
+    <h3 class="table-header">
+      <i class="fas fa-exchange-alt me-3"></i>Transaction History
+    </h3>
+    <div class="table-responsive">
+      <table class="table table-hover align-middle">
+        <thead>
+          <tr>
+            <th style="width: 15%">
+              <i class="fas fa-calendar-day me-2"></i>Date
+            </th>
+            <th style="width: 15%"><i class="fas fa-tag me-2"></i>Type</th>
+            <th style="width: 25%">
+              <i class="fas fa-folder me-2"></i>Category
+            </th>
+            <th style="width: 20%">
+              <i class="fas fa-dollar-sign me-2"></i>Amount
+            </th>
+            <th style="width: 15%"><i class="fas fa-cogs me-2"></i>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let transaction of transactions">
+            <td>
+              <span class="fw-medium">{{ transaction.createAt }}</span>
+            </td>
+            <td>
+              <span
+                class="badge rounded-pill px-3 py-2"
+                [ngClass]="
+                  transaction.type === 'Income' ? 'bg-success' : 'bg-danger'
+                "
+              >
+                <i
+                  class="fas"
+                  [ngClass]="
+                    transaction.type === 'Income' ? 'fa-plus' : 'fa-minus'
+                  "
+                  class="me-1"
+                ></i>
+                {{ transaction.type }}
+              </span>
+            </td>
+            <td>
+              <span class="fw-medium">{{ transaction.category }}</span>
+            </td>
+            <td>
+              <span
+                class="fw-bold fs-6"
+                [ngClass]="
+                  transaction.type === 'Income' ? 'text-success' : 'text-danger'
+                "
+              >
+                {{ transaction.amount | currency }}
+              </span>
+            </td>
+            <td>
+              <button class="btn btn-sm btn-primary me-2">
+                <i class="fas fa-pencil-alt me-1"></i>Edit
+              </button>
+              <button class="btn btn-sm btn-danger">
+                <i class="fas fa-trash-alt me-1"></i>Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
