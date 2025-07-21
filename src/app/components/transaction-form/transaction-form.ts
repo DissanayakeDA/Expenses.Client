@@ -117,7 +117,9 @@ export class TransactionForm implements OnInit {
 
         // First populate categories based on transaction type
         this.avalableCategories =
-          transaction.type === 'Expenses' ? this.expenseCategories : this.incomeCategories;
+          transaction.type === 'Expenses'
+            ? this.expenseCategories
+            : this.incomeCategories;
 
         // Then set form values including the category
         this.transactionForm.patchValue({

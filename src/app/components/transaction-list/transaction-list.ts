@@ -42,4 +42,20 @@ export class TransactionList implements OnInit {
       this.router.navigate(['/edit/', transaction.id]);
     }
   }
+  deleteTransaction(transaction: Transaction) {
+    if (transaction.id) {
+      if (confirm('Are you sure you want to delete this transaction?')) {
+        this.transactionService.delete(transaction.id).subscribe({
+          next: () => {
+            console.log('Transaction deleted successfully');
+            this.loadTransactions(); // Reload the list
+          },
+          error: (error) => {
+            console.error('Error deleting transaction:', error);
+            alert('Failed to delete transaction. Please try again.');
+          },
+        });
+      }
+    }
+  }
 }
