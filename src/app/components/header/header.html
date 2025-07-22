@@ -30,6 +30,7 @@
           class="btn btn-light btn-sm rounded-pill px-3 py-2"
           type="button"
           [routerLink]="'/add'"
+          *ngIf="isLoggedIn()"
         >
           <i class="bi bi-plus-circle me-1"></i>
           Add Transaction
@@ -38,6 +39,8 @@
         <button
           class="btn btn-outline-light btn-sm rounded-pill px-3 py-2"
           type="button"
+          (click)="onLogout()"
+          *ngIf="isLoggedIn()"
         >
           <i class="bi bi-box-arrow-right me-1"></i>
           Logout
@@ -47,9 +50,20 @@
           class="btn btn-outline-light btn-sm rounded-pill px-3 py-2"
           type="button"
           [routerLink]="'/login'"
+          *ngIf="!isLoggedIn()"
         >
           <i class="bi bi-person me-1"></i>
           Login
+        </button>
+
+        <button
+          class="btn btn-light btn-sm rounded-pill px-3 py-2"
+          type="button"
+          [routerLink]="'/signup'"
+          *ngIf="!isLoggedIn()"
+        >
+          <i class="bi bi-person-plus me-1"></i>
+          Sign Up
         </button>
       </div>
     </div>
