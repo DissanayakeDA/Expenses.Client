@@ -8,7 +8,8 @@ import { AuthService } from './auth.service';
   providedIn: 'root',
 })
 export class TransactionService {
-  private apiUrl = 'https://localhost:7170/api/Transactions';
+  private apiUrl =
+    'https://expenseappda-f8cjdufedea3cfae.canadacentral-01.azurewebsites.net/api/Transactions';
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
