@@ -40,8 +40,17 @@ export class Login {
       this.authService.login(loginData).subscribe({
         next: (response) => {
           console.log('Login successful:', response);
+          console.log('Token received:', response.token);
+
+          // Debug: Immediately check if we can extract user ID
+          if (response.token) {
+            console.log('Testing user ID extraction after login...');
+            const testUserId = this.authService.getUserId();
+            console.log('User ID extracted:', testUserId);
+          }
+
           alert('Login successful! Welcome back.');
-          this.router.navigate(['/transaction-list']);
+          this.router.navigate(['/transactions']);
         },
         error: (error: any) => {
           console.error('Login failed:', error);

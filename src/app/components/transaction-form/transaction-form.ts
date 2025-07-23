@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TransactionService } from '../../services/transaction.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-transaction-form',
@@ -30,12 +31,15 @@ export class TransactionForm implements OnInit {
 
   editMode = false;
   transactionId?: number;
+  isSubmitting = false;
+  errorMessage = '';
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private transactionService: TransactionService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private authService: AuthService
   ) {
     this.transactionForm = this.fb.group({
       type: ['', Validators.required],
@@ -45,6 +49,20 @@ export class TransactionForm implements OnInit {
     });
   }
   ngOnInit(): void {
+    // Debug: Check current authentication state
+    console.log('=== AUTHENTICATION DEBUG ===');
+    console.log('Is authenticated:', this.authService.isAuthenticated());
+    console.log('Token exists:', !!this.authService.getToken());
+    console.log('User ID:', this.authService.getUserId());
+    console.log('Current user:', this.authService.getCurrentUser());
+    console.log('========================');
+
+    // Check if user is authenticated
+    if (!this.authService.isAuthenticated()) {
+      this.router.navigate(['/login']);
+      return;
+    }
+
     const type = this.transactionForm.get('type')?.value;
     // Only set categories if a type is actually selected
     if (type) {
@@ -72,7 +90,26 @@ export class TransactionForm implements OnInit {
 
   onSubmit(): void {
     if (this.transactionForm.valid) {
+      // Debug authentication and user ID
+      console.log('Is authenticated:', this.authService.isAuthenticated());
+      console.log('Current token:', this.authService.getToken());
+      console.log('User ID:', this.authService.getUserId());
+      console.log('Current user:', this.authService.getCurrentUser());
+
+      // Check authentication before submitting
+      if (!this.authService.isAuthenticated()) {
+        this.errorMessage = 'Your session has expired. Please log in again.';
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        }, 2000);
+        return;
+      }
+
+      this.isSubmitting = true;
+      this.errorMessage = '';
+
       console.log('Form submitted:', this.transactionForm.value);
+
       if (this.editMode && this.transactionId) {
         // Update existing transaction
         this.transactionService
@@ -84,10 +121,12 @@ export class TransactionForm implements OnInit {
             },
             error: (error) => {
               console.error('Error updating transaction:', error);
+              this.handleError(error);
             },
           });
         return;
       }
+
       // Call the transaction service to save the transaction
       this.transactionService.create(this.transactionForm.value).subscribe({
         next: (response) => {
@@ -96,8 +135,33 @@ export class TransactionForm implements OnInit {
         },
         error: (error) => {
           console.error('Error creating transaction:', error);
+          this.handleError(error);
         },
       });
+    } else {
+      // Mark all fields as touched to show validation errors
+      Object.keys(this.transactionForm.controls).forEach((key) => {
+        this.transactionForm.get(key)?.markAsTouched();
+      });
+    }
+  }
+
+  private handleError(error: any): void {
+    this.isSubmitting = false;
+
+    if (error.message && error.message.includes('not authenticated')) {
+      this.errorMessage = 'Authentication expired. Redirecting to login...';
+      setTimeout(() => {
+        this.router.navigate(['/login']);
+      }, 2000);
+    } else if (error.status === 401) {
+      this.errorMessage = 'Authentication failed. Please log in again.';
+      setTimeout(() => {
+        this.authService.logout();
+      }, 2000);
+    } else {
+      this.errorMessage =
+        'An error occurred while saving the transaction. Please try again.';
     }
   }
 

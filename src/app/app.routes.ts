@@ -3,16 +3,10 @@ import { Login } from './components/login/login';
 import { Signup } from './components/signup/signup';
 import { TransactionList } from './components/transaction-list/transaction-list';
 import { TransactionForm } from './components/transaction-form/transaction-form';
-import { Home } from './components/home/home';
 import { authGuard } from './guards/auth.guard';
 import { guestGuard } from './guards/guest.guard';
 
 export const routes: Routes = [
-  {
-    path: 'home',
-    component: Home,
-    canActivate: [authGuard],
-  },
   {
     path: 'login',
     component: Login,

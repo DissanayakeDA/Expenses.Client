@@ -1,12 +1,7 @@
-<nav
-  class="navbar navbar-expand-lg"
-  style="
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    padding: 1rem 0;
-  "
->
+<nav class="navbar navbar-expand-lg expense-navbar">
   <div class="container-fluid px-4">
-    <a class="navbar-brand text-white fw-bold fs-4" href="#">
+    <a class="navbar-brand" href="#">
+      <i class="fas fa-wallet me-2"></i>
       Expense Tracker
     </a>
 
@@ -27,7 +22,7 @@
         class="navbar-nav ms-auto d-flex flex-column flex-lg-row gap-3 gap-lg-2 mt-3 mt-lg-0"
       >
         <button
-          class="btn btn-light btn-sm rounded-pill px-3 py-2"
+          class="btn btn-accent btn-sm rounded-pill px-3 py-2"
           type="button"
           [routerLink]="'/add'"
           *ngIf="isLoggedIn()"
@@ -47,7 +42,7 @@
         </button>
 
         <button
-          class="btn btn-outline-light btn-sm rounded-pill px-3 py-2"
+          class="btn btn-nav-secondary btn-sm rounded-pill px-3 py-2"
           type="button"
           [routerLink]="'/login'"
           *ngIf="!isLoggedIn()"
@@ -57,7 +52,7 @@
         </button>
 
         <button
-          class="btn btn-light btn-sm rounded-pill px-3 py-2"
+          class="btn btn-accent btn-sm rounded-pill px-3 py-2"
           type="button"
           [routerLink]="'/signup'"
           *ngIf="!isLoggedIn()"

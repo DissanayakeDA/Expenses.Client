@@ -1,0 +1,142 @@
+/* Login Component Styles with Unified Color Palette */
+
+.form-container {
+  background: var(--white);
+  border-radius: 20px;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  margin: 20px auto;
+  max-width: 400px;
+  width: 100%;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.form-header {
+  background: var(--primary-gradient);
+  color: var(--white);
+  padding: 20px 25px;
+  margin: 0;
+  font-weight: 600;
+  font-size: 1.3rem;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+}
+
+.form-header i {
+  color: var(--accent-primary);
+}
+
+.forgot-password {
+  color: var(--primary-medium);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.forgot-password:hover {
+  color: var(--primary-dark);
+  text-decoration: underline;
+}
+
+.form-check-input {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  accent-color: var(--primary-medium);
+  border: 2px solid var(--border-medium);
+  border-radius: 4px;
+}
+
+.form-check-label {
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  font-weight: 500;
+  margin-bottom: 0;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.text-danger {
+  color: var(--danger);
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+/* Form Validation Styles */
+.form-control.is-invalid {
+  border-color: var(--danger) !important;
+}
+
+.form-control.is-valid {
+  border-color: var(--success) !important;
+}
+
+/* Button Enhancements */
+.btn-primary {
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.btn-primary::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  transform: translate(-50%, -50%);
+}
+
+.btn-primary:hover::before {
+  width: 100%;
+  height: 100%;
+}
+
+.btn-secondary {
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  width: 100%;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .form-container {
+    margin: 10px;
+    max-width: none;
+  }
+
+  .d-flex.justify-content-between {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .text-end {
+    text-align: left;
+  }
+}

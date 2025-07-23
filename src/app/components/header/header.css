@@ -1,0 +1,104 @@
+/* Header Styles with Unified Color Palette */
+.expense-navbar {
+  background: var(--primary-gradient);
+  padding: 1rem 0;
+  box-shadow: var(--shadow-md);
+}
+
+.navbar-brand {
+  color: var(--white) !important;
+  font-weight: 700;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.navbar-brand:hover {
+  color: var(--white) !important;
+  text-decoration: none;
+}
+
+.navbar-brand i {
+  color: var(--accent-primary);
+  font-size: 1.8rem;
+}
+
+.navbar-toggler {
+  border: none !important;
+  padding: 0.25rem 0.5rem;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none !important;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+}
+
+/* Custom Button Styles for Navigation */
+.btn-accent {
+  background: linear-gradient(
+    135deg,
+    var(--accent-primary) 0%,
+    var(--accent-secondary) 100%
+  );
+  border: none;
+  color: var(--white);
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-accent:hover {
+  background: linear-gradient(
+    135deg,
+    var(--accent-secondary) 0%,
+    var(--accent-primary) 100%
+  );
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(243, 156, 18, 0.3);
+  color: var(--white);
+}
+
+.btn-nav-secondary {
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: var(--white);
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-nav-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+  transform: translateY(-2px);
+}
+
+.btn-outline-light {
+  border: 2px solid rgba(255, 255, 255, 0.3) !important;
+  color: var(--white) !important;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-light:hover {
+  background: rgba(231, 76, 60, 0.1) !important;
+  border-color: var(--danger) !important;
+  color: var(--danger) !important;
+  transform: translateY(-2px);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .navbar-nav {
+    align-items: center;
+    text-align: center;
+  }
+
+  .navbar-nav .btn {
+    width: 100%;
+    max-width: 200px;
+  }
+}
